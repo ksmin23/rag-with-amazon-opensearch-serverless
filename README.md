@@ -38,4 +38,5 @@ The overall architecture is like this:
   * [Improve search relevance with ML in Amazon OpenSearch Service Workshop](https://catalog.workshops.aws/semantic-search/en-US) - Module 7. Retrieval Augmented Generation
   * [rag-with-amazon-kendra](https://github.com/ksmin23/rag-with-amazon-kendra) - Question Answering application with Large Language Models (LLMs) and Amazon Kendra
   * [rag-with-postgresql-pgvector](https://github.com/ksmin23/rag-with-postgresql-pgvector) - Question Answering application with Large Language Models (LLMs) and Amazon Aurora Postgresql
-
+  * [rag-with-amazon-opensearch](https://github.com/ksmin23/rag-with-amazon-opensearch) - Question Answering application with Large Language Models (LLMs) and Amazon OpenSearch Service with [LangChain](https://www.langchain.com/)
+  * [rag-with-haystack-and-amazon-opensearch](https://github.com/ksmin23/rag-with-haystack-and-amazon-opensearch) - Question Answering application with Large Language Models (LLMs) and Amazon OpenSearch Service with [Haystack](https://haystack.deepset.ai/)
