@@ -31,7 +31,7 @@ sm_studio_stack = SageMakerStudioStack(app, 'RAGSageMakerStudioStack',
 sm_studio_stack.add_dependency(vpc_stack)
 
 ops_stack = OpsServerlessVectorSearchStack(app, 'RAGOpenSearchServerlessStack',
-  sm_studio_stack.sagemaker_execution_role_name,
+  sm_studio_stack.sagemaker_execution_role_arn,
   env=APP_ENV
 )
 ops_stack.add_dependency(sm_studio_stack)

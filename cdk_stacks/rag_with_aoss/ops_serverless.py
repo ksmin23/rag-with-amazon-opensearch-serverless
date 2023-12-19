@@ -16,8 +16,7 @@ from constructs import Construct
 
 class OpsServerlessVectorSearchStack(Stack):
 
-  # def __init__(self, scope: Construct, construct_id: str, sagemaker_execution_role_name, **kwargs) -> None:
-  def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+  def __init__(self, scope: Construct, construct_id: str, sagemaker_execution_role_arn, **kwargs) -> None:
     super().__init__(scope, construct_id, **kwargs)
 
     user_name = self.node.try_get_context('user_name')
@@ -106,8 +105,8 @@ class OpsServerlessVectorSearchStack(Stack):
           }
         ],
         "Principal": [
-          ops_iam_user.user_arn
-          # , f"arn:aws:sts::{cdk.Aws.ACCOUNT_ID}:assumed-role/{sagemaker_execution_role_name}/*"
+          ops_iam_user.user_arn,
+          sagemaker_execution_role_arn
         ],
         "Description": "data-access-rule"
       }

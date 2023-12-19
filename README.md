@@ -15,7 +15,7 @@ The overall architecture is like this:
 1. Deploy the cdk stacks (For more information, see [here](./cdk_stacks/README.md)).
    - A SageMaker Endpoint for text generation.
    - A SageMaker Endpoint for generating embeddings.
-   - An Amazon OpenSearch Serverless cluster for storing embeddings.
+   - An Amazon OpenSearch Serverless for storing embeddings.
 2. Open SageMaker Studio and then open a new terminal.
 3. Run the following commands on the terminal to clone the code repository for this project:
    ```
