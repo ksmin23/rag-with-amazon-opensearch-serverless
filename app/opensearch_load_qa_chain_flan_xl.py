@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# -*- encoding: utf-8 -*-
+# vim: tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+
 import os
 import json
 import logging
@@ -7,21 +11,20 @@ from urllib.parse import urlparse
 
 import boto3
 
-from langchain.vectorstores import OpenSearchVectorSearch
-from langchain.embeddings import SagemakerEndpointEmbeddings
+from langchain_community.vectorstores import OpenSearchVectorSearch
+from langchain_community.embeddings import SagemakerEndpointEmbeddings
+from langchain_community.embeddings.sagemaker_endpoint import EmbeddingsContentHandler
+
 from langchain.llms.sagemaker_endpoint import SagemakerEndpoint
 from langchain.llms.sagemaker_endpoint import LLMContentHandler
-from langchain.llms.sagemaker_endpoint import ContentHandlerBase
-from langchain.embeddings.sagemaker_endpoint import EmbeddingsContentHandler
 from langchain.prompts import PromptTemplate
 from langchain.chains.question_answering import load_qa_chain
 
 from opensearchpy import (
     AWSV4SignerAuth,
-    RequestsHttpConnection                       
+    RequestsHttpConnection
 )
 
-# logger = logging.getLogger(__name__)
 logger = logging.getLogger()
 logging.basicConfig(format='%(asctime)s,%(module)s,%(processName)s,%(levelname)s,%(message)s', level=logging.INFO, stream=sys.stderr)
 
@@ -44,7 +47,7 @@ class SagemakerEndpointEmbeddingsJumpStart(SagemakerEndpointEmbeddings):
             List of embeddings, one for each text.
         """
         results = []
-        #print(f"length of texts = {len(texts)}")
+
         _chunk_size = len(texts) if chunk_size > len(texts) else chunk_size
 
         for i in range(0, len(texts), _chunk_size):
@@ -78,12 +81,12 @@ class ContentHandlerForTextGeneration(LLMContentHandler):
     accepts = "application/json"
 
     def transform_input(self, prompt: str, model_kwargs = {}) -> bytes:
-        input_str = json.dumps({"text_inputs": prompt, **model_kwargs})
+        input_str = json.dumps({"inputs": prompt, **model_kwargs})
         return input_str.encode('utf-8')
 
     def transform_output(self, output: bytes) -> str:
         response_json = json.loads(output.read().decode("utf-8"))
-        return response_json["generated_texts"][0]
+        return response_json[0]["generated_text"]
 
 
 def _create_sagemaker_embeddings(endpoint_name: str, region: str = "us-east-1") -> SagemakerEndpointEmbeddingsJumpStart:
